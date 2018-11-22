@@ -79655,12 +79655,6 @@ var _AppRouter = _interopRequireDefault(require("./routers/AppRouter"));
 
 var _configureStore = _interopRequireDefault(require("./store/configureStore"));
 
-var _expenses = require("./actions/expenses");
-
-var _filters = require("./actions/filters");
-
-var _expenses2 = _interopRequireDefault(require("./selectors/expenses"));
-
 require("normalize.css/normalize.css");
 
 require("./styles.scss");
@@ -79668,31 +79662,13 @@ require("./styles.scss");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = (0, _configureStore.default)();
-store.dispatch((0, _expenses.addExpense)({
-  description: 'Water bill',
-  amount: 1004700,
-  createdAt: 2000
-}));
-store.dispatch((0, _expenses.addExpense)({
-  description: 'Gas bill',
-  amount: 8100,
-  createdAt: 1000
-}));
-store.dispatch((0, _expenses.addExpense)({
-  description: 'Rent',
-  amount: 109500
-}));
-store.subscribe(function () {
-  var state = store.getState();
-  var visibleExpenses = (0, _expenses2.default)(state.expenses, state.filters); //    console.log(visibleExpenses); 
-});
 
 var jsx = _react.default.createElement(_reactRedux.Provider, {
   store: store
 }, _react.default.createElement(_AppRouter.default, null));
 
 _reactDom.default.render(jsx, document.querySelector('#app'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-redux":"../node_modules/react-redux/es/index.js","./routers/AppRouter":"routers/AppRouter.js","./store/configureStore":"store/configureStore.js","./actions/expenses":"actions/expenses.js","./actions/filters":"actions/filters.js","./selectors/expenses":"selectors/expenses.js","normalize.css/normalize.css":"../node_modules/normalize.css/normalize.css","./styles.scss":"styles.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-redux":"../node_modules/react-redux/es/index.js","./routers/AppRouter":"routers/AppRouter.js","./store/configureStore":"store/configureStore.js","normalize.css/normalize.css":"../node_modules/normalize.css/normalize.css","./styles.scss":"styles.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
