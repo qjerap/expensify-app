@@ -57373,7 +57373,7 @@ var _numeral = _interopRequireDefault(require("numeral"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ExpensesSummary = function ExpensesSummary(props) {
-  return _react.default.createElement("div", null, props.expenseCount.length > 0 && _react.default.createElement("p", null, "Viewing \n                ".concat(props.expenseCount.length, " \n                expenses totalling \n                ").concat((0, _numeral.default)((0, _expensesTotal.default)(props.expenseCount) / 100).format('0,0[.]00 $'))));
+  return _react.default.createElement("div", null, props.expenseCount.length > 0 && _react.default.createElement("h1", null, "Viewing ", props.expenseCount.length, " ", props.expenseCount.length > 1 ? _react.default.createElement("span", null, "expenses") : _react.default.createElement("span", null, "expense"), " ", _react.default.createElement("span", null, "totalling"), " ", (0, _numeral.default)((0, _expensesTotal.default)(props.expenseCount) / 100).format('0,0[.]00 $')));
 };
 
 var mapStateToProps = function mapStateToProps(state) {

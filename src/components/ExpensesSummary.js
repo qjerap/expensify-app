@@ -9,12 +9,10 @@ import numeral from 'numeral';
 
 
 const ExpensesSummary = (props) => (
+
         <div>
-            {props.expenseCount.length > 0 && <p>
-                {`Viewing 
-                ${props.expenseCount.length} 
-                expenses totalling 
-                ${numeral(expensesTotal(props.expenseCount) / 100).format('0,0[.]00 $')}`}</p>}        
+            {props.expenseCount.length > 0 && <h1>
+                Viewing {props.expenseCount.length} {props.expenseCount.length > 1 ? <span>expenses</span> : <span>expense</span>} <span>totalling</span> {numeral(expensesTotal(props.expenseCount) / 100).format('0,0[.]00 $')}</h1>}        
         </div>
 
     );
