@@ -34474,7 +34474,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 var ExpenseList = function ExpenseList(props) {
-  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Expense List"), props.expenses.map(function (expense) {
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Expense List"), props.expenses.length < 1 && _react.default.createElement("p", null, "No expenses"), props.expenses.map(function (expense) {
     return _react.default.createElement(_ExpenseListItem.default, _extends({
       key: expense.id
     }, expense));
