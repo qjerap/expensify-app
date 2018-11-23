@@ -57344,15 +57344,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _default = function _default(expenses) {
-  if (expenses.length === 0) {
-    return 0;
-  } else {
-    return expenses.map(function (expense) {
-      return expense.amount;
-    }).reduce(function (acc, currentValue) {
-      return acc + currentValue;
-    }, 0);
-  }
+  return expenses.map(function (expense) {
+    return expense.amount;
+  }).reduce(function (acc, currentValue) {
+    return acc + currentValue;
+  }, 0);
 };
 
 exports.default = _default;
