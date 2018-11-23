@@ -57366,6 +57366,8 @@ var _reactRedux = require("react-redux");
 
 var _expensesTotal = _interopRequireDefault(require("../selectors/expenses-total"));
 
+var _expenses = _interopRequireDefault(require("../selectors/expenses"));
+
 var _numeral = _interopRequireDefault(require("numeral"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -57376,14 +57378,14 @@ var ExpensesSummary = function ExpensesSummary(props) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    expenseCount: state.expenses
+    expenseCount: (0, _expenses.default)(state.expenses, state.filters)
   };
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps)(ExpensesSummary);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../selectors/expenses-total":"selectors/expenses-total.js","numeral":"../node_modules/numeral/numeral.js"}],"components/ExpenseDashboardPage.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../selectors/expenses-total":"selectors/expenses-total.js","../selectors/expenses":"selectors/expenses.js","numeral":"../node_modules/numeral/numeral.js"}],"components/ExpenseDashboardPage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
