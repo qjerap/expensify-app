@@ -57335,7 +57335,59 @@ var mapStateToProps = function mapStateToProps(state) {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(ExpenseListFilters);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-dates":"../node_modules/react-dates/index.js","../actions/filters":"actions/filters.js"}],"components/ExpenseDashboardPage.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-dates":"../node_modules/react-dates/index.js","../actions/filters":"actions/filters.js"}],"selectors/expenses-total.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _default = function _default(expenses) {
+  if (expenses.length === 0) {
+    return 0;
+  } else {
+    return expenses.map(function (expense) {
+      return expense.amount;
+    }).reduce(function (acc, currentValue) {
+      return acc + currentValue;
+    }, 0);
+  }
+};
+
+exports.default = _default;
+},{}],"components/ExpensesSummary.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _expensesTotal = _interopRequireDefault(require("../selectors/expenses-total"));
+
+var _numeral = _interopRequireDefault(require("numeral"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ExpensesSummary = function ExpensesSummary(props) {
+  return _react.default.createElement("div", null, props.expenseCount.length > 0 && _react.default.createElement("p", null, "Viewing \n                ".concat(props.expenseCount.length, " \n                expenses totalling \n                ").concat((0, _numeral.default)((0, _expensesTotal.default)(props.expenseCount) / 100).format('0,0[.]00 $'))));
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    expenseCount: state.expenses
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(ExpensesSummary);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../selectors/expenses-total":"selectors/expenses-total.js","numeral":"../node_modules/numeral/numeral.js"}],"components/ExpenseDashboardPage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57349,15 +57401,17 @@ var _ExpenseList = _interopRequireDefault(require("./ExpenseList"));
 
 var _ExpenseListFilters = _interopRequireDefault(require("./ExpenseListFilters"));
 
+var _ExpensesSummary = _interopRequireDefault(require("./ExpensesSummary"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ExpenseDashboardPage = function ExpenseDashboardPage() {
-  return _react.default.createElement("div", null, _react.default.createElement(_ExpenseListFilters.default, null), _react.default.createElement(_ExpenseList.default, null));
+  return _react.default.createElement("div", null, _react.default.createElement(_ExpenseListFilters.default, null), _react.default.createElement(_ExpensesSummary.default, null), _react.default.createElement(_ExpenseList.default, null));
 };
 
 var _default = ExpenseDashboardPage;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./ExpenseList":"components/ExpenseList.js","./ExpenseListFilters":"components/ExpenseListFilters.js"}],"../node_modules/base64-js/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./ExpenseList":"components/ExpenseList.js","./ExpenseListFilters":"components/ExpenseListFilters.js","./ExpensesSummary":"components/ExpensesSummary.js"}],"../node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
