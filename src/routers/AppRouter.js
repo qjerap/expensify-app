@@ -1,26 +1,23 @@
 import React from 'react';
-import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
-import AddExpensePage from '../components/AddExpensePage';
-import EditExpensePage from '../components/EditExpensePage';
-import HelpPage from '../components/HelpPage';
-import NotFoundPage from '../components/NotFoundPage';
 import Header from '../components/Header';
+import DashboardPage from '../components/DashboardPage';
+import AddBlog from '../components/AddBlog'
+import EditBlog from '../components/EditBlog'
+import ReadBlog from '../components/ReadBlog'
 import { BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
-
 
 
 const AppRouter = () => (
     <BrowserRouter>
-    <div>
-        <Header />
-        <Switch>
-            <Route path="/" component={ExpenseDashboardPage} exact={true}/>
-            <Route path="/create" component={AddExpensePage}/>
-            <Route path="/edit/:id" component={EditExpensePage}/>
-            <Route path="/help" component={HelpPage}/>
-            <Route component={NotFoundPage}/>
-        </Switch>      
-    </div>
+        <div>
+            <Header />
+            <Switch>
+                <Route path="/dashboard" component={DashboardPage} exact />
+                <Route path="/create" component={AddBlog} />
+                <Route path='/edit/:id' component={EditBlog} />
+                <Route path='/read/:id' component={ReadBlog} />
+            </Switch>      
+        </div>
     </BrowserRouter>
 );
 
