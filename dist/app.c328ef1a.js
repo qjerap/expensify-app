@@ -125107,7 +125107,8 @@ exports.addBlogAC = addBlogAC;
 
 var firebaseAddBlogAC = function firebaseAddBlogAC() {
   var blogData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    var uid = getState().auth.uid;
     var _blogData$title = blogData.title,
         title = _blogData$title === void 0 ? '' : _blogData$title,
         _blogData$body = blogData.body,
@@ -125120,7 +125121,7 @@ var firebaseAddBlogAC = function firebaseAddBlogAC() {
       createdAt: createdAt
     };
 
-    _firebase.default.ref('blogs').push(blog).then(function (ref) {
+    _firebase.default.ref("users/".concat(uid, "/blogs")).push(blog).then(function (ref) {
       dispatch(addBlogAC(_objectSpread({
         id: ref.key
       }, blog)));
@@ -125142,8 +125143,9 @@ var editBlogAC = function editBlogAC(id, updates) {
 exports.editBlogAC = editBlogAC;
 
 var firebaseEditBlogAC = function firebaseEditBlogAC(id, updates) {
-  return function (dispatch) {
-    return _firebase.default.ref("blogs/".concat(id)).update(updates).then(function () {
+  return function (dispatch, getState) {
+    var uid = getState().auth.uid;
+    return _firebase.default.ref("users/".concat(uid, "/blogs/").concat(id)).update(updates).then(function () {
       dispatch(editBlogAC(id, updates));
     });
   };
@@ -125162,8 +125164,9 @@ var removeBlogAC = function removeBlogAC(id) {
 exports.removeBlogAC = removeBlogAC;
 
 var firebaseRemoveBlogAC = function firebaseRemoveBlogAC(id) {
-  return function (dispatch) {
-    return _firebase.default.ref("blogs/".concat(id)).remove().then(function () {
+  return function (dispatch, getState) {
+    var uid = getState().auth.uid;
+    return _firebase.default.ref("users/".concat(uid, "/blogs/").concat(id)).remove().then(function () {
       dispatch(removeBlogAC(id));
     });
   };
@@ -125182,8 +125185,10 @@ var fetchData = function fetchData(blogs) {
 exports.fetchData = fetchData;
 
 var firebaseFetchData = function firebaseFetchData() {
-  return function (dispatch) {
-    _firebase.default.ref('blogs').once('value').then(function (snapshot) {
+  return function (dispatch, getState) {
+    var uid = getState().auth.uid;
+
+    _firebase.default.ref("users/".concat(uid, "/blogs")).once('value').then(function (snapshot) {
       var blogs = [];
       snapshot.forEach(function (child) {
         blogs.push(_objectSpread({
@@ -125446,7 +125451,54 @@ var mapStateToProps = function mapStateToProps(state) {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(PrivateRoute);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","../components/Header":"components/Header.js"}],"routers/AppRouter.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","../components/Header":"components/Header.js"}],"routers/PublicRoute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.PublicRoute = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+var PublicRoute = function PublicRoute(_ref) {
+  var isAuthenticated = _ref.isAuthenticated,
+      Component = _ref.component,
+      rest = _objectWithoutProperties(_ref, ["isAuthenticated", "component"]);
+
+  return _react.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
+    component: function component(props) {
+      return isAuthenticated ? _react.default.createElement(_reactRouterDom.Redirect, {
+        to: "/dashboard"
+      }) : _react.default.createElement(Component, props);
+    }
+  }));
+};
+
+exports.PublicRoute = PublicRoute;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.auth.uid
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(PublicRoute);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js"}],"routers/AppRouter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -125472,6 +125524,8 @@ var _reactRouterDom = require("react-router-dom");
 
 var _PrivateRoute = _interopRequireDefault(require("./PrivateRoute"));
 
+var _PublicRoute = _interopRequireDefault(require("./PublicRoute"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var history = (0, _createBrowserHistory.default)();
@@ -125480,7 +125534,7 @@ exports.history = history;
 var AppRouter = function AppRouter() {
   return _react.default.createElement(_reactRouterDom.Router, {
     history: history
-  }, _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+  }, _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_PublicRoute.default, {
     path: "/",
     component: _LoginPage.default,
     exact: true
@@ -125501,7 +125555,7 @@ var AppRouter = function AppRouter() {
 
 var _default = AppRouter;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","history/createBrowserHistory":"../node_modules/history/createBrowserHistory.js","../components/LoginPage":"components/LoginPage.js","../components/DashboardPage":"components/DashboardPage.js","../components/AddBlog":"components/AddBlog.js","../components/EditBlog":"components/EditBlog.js","../components/ReadBlog":"components/ReadBlog.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./PrivateRoute":"routers/PrivateRoute.js"}],"../node_modules/redux-thunk/es/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","history/createBrowserHistory":"../node_modules/history/createBrowserHistory.js","../components/LoginPage":"components/LoginPage.js","../components/DashboardPage":"components/DashboardPage.js","../components/AddBlog":"components/AddBlog.js","../components/EditBlog":"components/EditBlog.js","../components/ReadBlog":"components/ReadBlog.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./PrivateRoute":"routers/PrivateRoute.js","./PublicRoute":"routers/PublicRoute.js"}],"../node_modules/redux-thunk/es/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -125841,7 +125895,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56780" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53738" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -8,8 +8,9 @@ export const addBlogAC = (blog) => ({
     });
 
 export const firebaseAddBlogAC = (blogData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
 
+        const uid = getState().auth.uid
         const {
             title = '',
             body = '',
@@ -18,7 +19,7 @@ export const firebaseAddBlogAC = (blogData = {}) => {
 
         const blog = { title, body, createdAt}
 
-        db.ref('blogs').push(blog)
+        db.ref(`users/${uid}/blogs`).push(blog)
         .then((ref) => {
             dispatch(addBlogAC({id: ref.key, ...blog}))
         })
@@ -35,8 +36,9 @@ export const editBlogAC = (id, updates) => ({
 })
 
 export const firebaseEditBlogAC = (id, updates) => {
-    return (dispatch) => {
-        return db.ref(`blogs/${id}`).update(updates)
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid
+        return db.ref(`users/${uid}/blogs/${id}`).update(updates)
             .then(() => {
             dispatch(editBlogAC(id, updates))
         })
@@ -51,8 +53,9 @@ export const removeBlogAC = (id) => ({
 });
 
 export const firebaseRemoveBlogAC = (id) => {
-    return (dispatch) => {
-        return db.ref(`blogs/${id}`).remove()
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid
+        return db.ref(`users/${uid}/blogs/${id}`).remove()
             .then(() => {
                 dispatch(removeBlogAC(id))
             })
@@ -67,9 +70,10 @@ export const fetchData = (blogs) => ({
 })
 
 export const firebaseFetchData = () => {
-    return (dispatch) => {
-        
-        db.ref('blogs').once('value')
+    return (dispatch, getState) => {
+
+        const uid = getState().auth.uid
+        db.ref(`users/${uid}/blogs`).once('value')
             .then((snapshot) => {
                 const blogs = [];
                 snapshot.forEach((child) => {
