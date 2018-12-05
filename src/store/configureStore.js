@@ -1,24 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
 import blogReducer from './reducers/blog'
 import filterReducer from './reducers/filter'
+import authReducer from './reducers/auth'
 
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose ;
 
-// import thunk from 'redux-thunk';
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose ;
-
-// export default () => {
-//     const store = createStore(
-//         combineReducers({
-//             expenses: expensesReducer,
-//             filters: filtersReducer,
-//             auth: authReducer
-//         }),
-//         composeEnhancers(applyMiddleware(thunk))
-//     );
-//     return store;
-// }
 
 
 export default () => {
@@ -26,8 +15,10 @@ export default () => {
     const store = createStore(
         combineReducers({
             blogs: blogReducer,
-            filters: filterReducer
-        })
+            filters: filterReducer,
+            auth: authReducer
+        }),
+        composeEnhancers(applyMiddleware(thunk))
     )
     return store;
 

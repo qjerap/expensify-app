@@ -17,6 +17,8 @@ export default (state = blogReducerDefaultState, action) => {
             });
         case 'REMOVE_BLOG':
             return state.filter(({id}) => id !== action.id );
+        case 'FETCH_DATA':
+            return action.blogs
         default: return state;   
 
     }

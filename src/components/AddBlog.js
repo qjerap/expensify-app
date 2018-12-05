@@ -1,6 +1,6 @@
 import React from 'react';
 import BlogForm from './BlogForm'
-import { addBlogAC } from '../store/actions/blog'
+import { firebaseAddBlogAC } from '../store/actions/blog'
 import { connect } from 'react-redux';
 
 class AddBlog extends React.Component {
@@ -11,7 +11,7 @@ class AddBlog extends React.Component {
     }
 
     onSubmit(blog) {
-        this.props.testYO(blog)
+        this.props.firebaseAddBlogAC(blog)
         this.props.history.push('/dashboard')
     }
 
@@ -29,7 +29,7 @@ class AddBlog extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
 
-    testYO: (blog) => dispatch(addBlogAC(blog))
+    firebaseAddBlogAC: (blog) => dispatch(firebaseAddBlogAC(blog))
 })
 
 export default connect(null, mapDispatchToProps)(AddBlog);

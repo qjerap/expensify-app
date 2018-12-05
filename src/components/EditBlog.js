@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import BlogForm from './BlogForm'
-import { editBlogAC, removeBlogAC } from '../store/actions/blog'
+import { firebaseEditBlogAC, firebaseRemoveBlogAC } from '../store/actions/blog'
 import { Link } from 'react-router-dom'
 
 const EditBlog = (props) => {
@@ -13,7 +13,7 @@ const EditBlog = (props) => {
             <BlogForm 
                 blog={props.blog}
                 onSubmit={(blog) => {
-                      props.dispatch(editBlogAC(props.blog.id, blog))
+                      props.dispatch(firebaseEditBlogAC(props.blog.id, blog))
                       props.history.push('/dashboard')                 
                 }}
             />
@@ -21,7 +21,7 @@ const EditBlog = (props) => {
                 onClick={
                     () => {
 
-                        props.dispatch(removeBlogAC(props.blog.id))
+                        props.dispatch(firebaseRemoveBlogAC(props.blog.id))
                         props.history.push('/dashboard')
                     }
                 }
