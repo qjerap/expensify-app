@@ -13,7 +13,7 @@ import { firebase } from './firebase/firebase';
 
 const store = configureStore();
 
-store.dispatch(firebaseFetchData())
+// store.dispatch(firebaseFetchData())
 
 
 const jsx = (

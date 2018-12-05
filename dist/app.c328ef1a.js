@@ -94506,46 +94506,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(LoginPage);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../store/actions/auth":"store/actions/auth.js"}],"components/Header.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactRedux = require("react-redux");
-
-var _auth = require("../store/actions/auth");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Header = function Header(props) {
-  return _react.default.createElement("div", null, _react.default.createElement("h3", null, "BlogMTL"), _react.default.createElement("button", {
-    onClick: function onClick() {
-      props.lgout();
-      props.firebaseLogout();
-      console.log('kek');
-    }
-  }, "logout"));
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    lgout: function lgout() {
-      return dispatch((0, _auth.logout)());
-    },
-    firebaseLogout: function firebaseLogout() {
-      return dispatch((0, _auth.firebaseLogout)());
-    }
-  };
-};
-
-var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Header);
-
-exports.default = _default;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../store/actions/auth":"store/actions/auth.js"}],"store/actions/filter.js":[function(require,module,exports) {
 "use strict";
 
@@ -125397,7 +125357,96 @@ var mapStateToProps = function mapStateToProps(state, props) {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(ReadBlog);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js"}],"routers/AppRouter.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js"}],"components/Header.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _auth = require("../store/actions/auth");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Header = function Header(props) {
+  return _react.default.createElement("div", null, _react.default.createElement("h3", null, "BlogMTL"), _react.default.createElement("button", {
+    onClick: function onClick() {
+      props.lgout();
+      props.firebaseLogout();
+      console.log('kek');
+    }
+  }, "logout"));
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    lgout: function lgout() {
+      return dispatch((0, _auth.logout)());
+    },
+    firebaseLogout: function firebaseLogout() {
+      return dispatch((0, _auth.firebaseLogout)());
+    }
+  };
+};
+
+var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Header);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../store/actions/auth":"store/actions/auth.js"}],"routers/PrivateRoute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.PrivateRoute = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _Header = _interopRequireDefault(require("../components/Header"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+var PrivateRoute = function PrivateRoute(_ref) {
+  var isAuthenticated = _ref.isAuthenticated,
+      Component = _ref.component,
+      rest = _objectWithoutProperties(_ref, ["isAuthenticated", "component"]);
+
+  return _react.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
+    component: function component(props) {
+      return isAuthenticated ? _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement(Component, props)) : _react.default.createElement(_reactRouterDom.Redirect, {
+        to: "/"
+      });
+    }
+  }));
+};
+
+exports.PrivateRoute = PrivateRoute;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.auth.uid
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(PrivateRoute);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","../components/Header":"components/Header.js"}],"routers/AppRouter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -125411,8 +125460,6 @@ var _createBrowserHistory = _interopRequireDefault(require("history/createBrowse
 
 var _LoginPage = _interopRequireDefault(require("../components/LoginPage"));
 
-var _Header = _interopRequireDefault(require("../components/Header"));
-
 var _DashboardPage = _interopRequireDefault(require("../components/DashboardPage"));
 
 var _AddBlog = _interopRequireDefault(require("../components/AddBlog"));
@@ -125423,6 +125470,8 @@ var _ReadBlog = _interopRequireDefault(require("../components/ReadBlog"));
 
 var _reactRouterDom = require("react-router-dom");
 
+var _PrivateRoute = _interopRequireDefault(require("./PrivateRoute"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var history = (0, _createBrowserHistory.default)();
@@ -125431,17 +125480,17 @@ exports.history = history;
 var AppRouter = function AppRouter() {
   return _react.default.createElement(_reactRouterDom.Router, {
     history: history
-  }, _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+  }, _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
     path: "/",
     component: _LoginPage.default,
     exact: true
-  }), _react.default.createElement(_reactRouterDom.Route, {
+  }), _react.default.createElement(_PrivateRoute.default, {
     path: "/dashboard",
     component: _DashboardPage.default
-  }), _react.default.createElement(_reactRouterDom.Route, {
+  }), _react.default.createElement(_PrivateRoute.default, {
     path: "/create",
     component: _AddBlog.default
-  }), _react.default.createElement(_reactRouterDom.Route, {
+  }), _react.default.createElement(_PrivateRoute.default, {
     path: "/edit/:id",
     component: _EditBlog.default
   }), _react.default.createElement(_reactRouterDom.Route, {
@@ -125452,7 +125501,7 @@ var AppRouter = function AppRouter() {
 
 var _default = AppRouter;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","history/createBrowserHistory":"../node_modules/history/createBrowserHistory.js","../components/LoginPage":"components/LoginPage.js","../components/Header":"components/Header.js","../components/DashboardPage":"components/DashboardPage.js","../components/AddBlog":"components/AddBlog.js","../components/EditBlog":"components/EditBlog.js","../components/ReadBlog":"components/ReadBlog.js","react-router-dom":"../node_modules/react-router-dom/es/index.js"}],"../node_modules/redux-thunk/es/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","history/createBrowserHistory":"../node_modules/history/createBrowserHistory.js","../components/LoginPage":"components/LoginPage.js","../components/DashboardPage":"components/DashboardPage.js","../components/AddBlog":"components/AddBlog.js","../components/EditBlog":"components/EditBlog.js","../components/ReadBlog":"components/ReadBlog.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./PrivateRoute":"routers/PrivateRoute.js"}],"../node_modules/redux-thunk/es/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -125743,8 +125792,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _configureStore.default)();
-store.dispatch((0, _blog.firebaseFetchData)());
+var store = (0, _configureStore.default)(); // store.dispatch(firebaseFetchData())
 
 var jsx = _react.default.createElement(_reactRedux.Provider, {
   store: store
