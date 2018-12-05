@@ -125792,8 +125792,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _configureStore.default)();
-store.dispatch((0, _blog.firebaseFetchData)());
+var store = (0, _configureStore.default)(); // store.dispatch(firebaseFetchData())
 
 var jsx = _react.default.createElement(_reactRedux.Provider, {
   store: store
