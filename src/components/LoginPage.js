@@ -6,8 +6,10 @@ const LoginPage = (props) => {
 
     return (
 
-        <div>
-            <button onClick={props.firebaseLogin}>Login</button>
+        <div className="wrapper login">
+            <h1>BLOG&SHARE</h1>
+            <p>Fatest way to blog and share your thoughts</p>
+            <button onClick={props.firebaseLogin}>Sign in with google</button>
         </div>
     );
 }

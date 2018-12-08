@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom'
 
 const EditBlog = (props) => {
     return (
+        <div className="wrapper gridCenter">
         <div>
-
-        <h4>Post readable at:</h4>
+        <span>Read and Share your blog at: </span>
         <Link to={`/read/${props.blog.id}`}>here</Link>
+        </div>
+        
             <BlogForm 
                 blog={props.blog}
                 onSubmit={(blog) => {
@@ -17,7 +19,7 @@ const EditBlog = (props) => {
                       props.history.push('/dashboard')                 
                 }}
             />
-            <button 
+            <button className="blog-form__button"
                 onClick={
                     () => {
 

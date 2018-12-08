@@ -17,8 +17,8 @@ class AddBlog extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>Add a blog!</h2>
+            <div className="wrapper gridCenter">
+                <h2>Create new blog</h2>
                 <BlogForm 
                     onSubmit={this.onSubmit}
                 />

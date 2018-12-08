@@ -1,5 +1,4 @@
 import React from 'react'
-import uuid from 'uuid'
 import moment from 'moment'
 
 class BlogForm extends React.Component {
@@ -41,8 +40,11 @@ class BlogForm extends React.Component {
         return (
             <div>
                 {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit}>
+                <form 
+                className="blog-form"
+                onSubmit={this.onSubmit}>
                     <input 
+                    className="blog-form__title"
                         type="text"
                         placeholder="Title"
                         name="title"
@@ -50,14 +52,17 @@ class BlogForm extends React.Component {
                         autoFocus
                         onChange={this.onChange}
                     />
-                    <textarea 
+                    <textarea
+                        className="blog-form__body" 
                         type="textarea"
                         placeholder="..."
                         name="body"
                         value={this.state.body}
                         onChange={this.onChange}
                     />
-                    <button>Save Post</button>  
+                    <button
+                    className="blog-form__button" 
+                    >Save Post</button>  
                 </form>
             </div>
         );

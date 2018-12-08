@@ -6,7 +6,7 @@ const ReadBlog = (props) => {
     let {title, body, createdAt} = props.blog
 
     return (
-        <div>
+        <div className="wrapper gridCenter">
             <h1>{title}</h1>
             <p>{body}</p>
             <p>{createdAt}</p>

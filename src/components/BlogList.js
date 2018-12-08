@@ -9,8 +9,8 @@ const BlogList = (props) => {
 
         return (
 
-        <div>
-            {props.blogs < 1 && <p>No blog</p>}
+        <div className="gridCenter mg-top">
+            {props.blogs < 1 && <p>It feels empty... Please add your first blog!</p>}
             {
                 props.blogs.map((blog) => 
 

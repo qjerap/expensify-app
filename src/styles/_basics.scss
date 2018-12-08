@@ -1,0 +1,32 @@
+// COLORS
+
+$l-red : #ef5a5a;
+$yellow: #FF6F91;
+
+// SIZE
+
+$small: 0.8rem;
+$large: 2rem;
+
+
+// WRAPPER
+
+.mg-top {
+    margin-top: $small;
+}
+
+.wrapper {
+    margin: 2rem auto;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.gridCenter {
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-content: center;
+}
+
+
+
+a {text-decoration: none;}

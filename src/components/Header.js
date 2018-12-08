@@ -1,18 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { logout, firebaseLogout } from '../store/actions/auth';
+import { Link } from 'react-router-dom'
 
 const Header = (props) => (
-    <div>
-        <h3>BlogMTL</h3>
-        <button
-        onClick={()=>{
-            props.lgout()
-            props.firebaseLogout()
-            console.log('kek')
-        }}
-        >logout</button>
-    </div>
+    <nav>
+        <div className="nav">
+            <a href="#" className="nav__logo text-pop-up-br">Blog&Share</a>
+            <Link to='/dashboard' className="nav__link">Dashboard</Link>
+            <a href="#" className="nav__logout"
+                    onClick={
+                        ()=>{
+                        props.lgout()
+                        props.firebaseLogout()
+                        console.log('kek')}
+                    }
+            >logout</a>          
+        </div>
+    </nav>
 );
 
 const mapDispatchToProps = (dispatch) => ({

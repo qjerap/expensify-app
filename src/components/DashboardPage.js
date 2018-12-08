@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom'
 
 const DashboardPage = () => (
 
-    <div>
-        <BlogFilter />
-        <Link to='/Create'>Add Post</Link>
+    <div className="wrapper">
+        
+            <BlogFilter />
+    
         <BlogList />
     </div>
 );
